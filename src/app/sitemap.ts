@@ -1,0 +1,8 @@
+import type { MetadataRoute } from "next";
+
+const routes = ["", "/membership", "/membership/why-join", "/membership/eligibility", "/membership/individual", "/membership/joint", "/membership/group", "/membership/corporate", "/membership/diaspora", "/membership/how-it-works", "/membership/requirements", "/join", "/application-status", "/save", "/save/demo-goal-savings", "/save/demo-fixed-deposit", "/borrow", "/borrow/demo-flex-loan", "/borrow/demo-enterprise-loan", "/compare", "/calculators", "/calculators/loan-repayment", "/calculators/loan-affordability", "/calculators/loan-eligibility", "/calculators/deposit-multiplier", "/calculators/savings-goal", "/calculators/regular-savings", "/calculators/fixed-deposit", "/calculators/dividend-estimator", "/calculators/loan-comparison", "/ask-g20", "/services", "/services/digital-banking", "/learn", "/learn/plan-a-realistic-monthly-budget", "/learn/understand-the-full-cost-of-a-loan", "/blog", "/news", "/events", "/notices", "/media", "/stories", "/transparency", "/reports", "/downloads", "/branches", "/security", "/about", "/about/history", "/about/mission", "/about/leadership", "/about/governance", "/about/impact", "/careers", "/procurement", "/partners", "/help", "/contact", "/request-callback", "/complaints", "/feedback", "/report-fraud", "/whistleblowing", "/privacy", "/terms", "/cookies", "/accessibility"];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  return routes.map((route) => ({ url: `${base}${route}`, lastModified: new Date(), changeFrequency: route === "" ? "weekly" : "monthly", priority: route === "" ? 1 : .7 }));
+}

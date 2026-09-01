@@ -1,0 +1,13 @@
+.next/
+.vinext/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+.dev.vars
+.env*
+!.env.example
+worker-configuration.d.ts
+tsconfig.tsbuildinfo
+/dist/
+.wrangler/

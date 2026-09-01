@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Great 20 Sacco</title>
+  <rect width="64" height="64" rx="15" fill="#27277f"/>
+  <circle cx="47" cy="32" r="12" fill="#ffb217"/>
+  <path d="M12 21c4-7 11-10 20-8v8c-5-1-9 1-11 5-2 5 0 12 6 15 2 1 4 1 6 0v-5h-7v-7h15v17c-5 4-11 6-17 4C11 46 6 32 12 21Z" fill="#fff"/>
+  <path d="M47 25v14M43 30h8" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+</svg>
