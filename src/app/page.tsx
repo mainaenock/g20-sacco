@@ -59,10 +59,11 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="section">
+      <section className="section section--products">
         <Container>
           <SectionHeader eyebrow="Explore possibilities" title="Products explained in plain language." description="Each demonstration card carries effective-date context, method-aware rates and the conditions a real configuration must supply." action={<Link href="/compare" className="button button--secondary">Compare options</Link>} />
-          <div className="card-grid card-grid--four">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
+          <p className="card-rail__hint" id="product-rail-hint">Swipe sideways to explore all products</p>
+          <div className="card-grid card-grid--four card-rail" role="region" aria-label="G20 products" aria-describedby="product-rail-hint" tabIndex={0}>{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         </Container>
       </section>
 
@@ -78,7 +79,8 @@ export default function HomePage() {
 
       <section className="section">
         <Container>
-          <div className="home-duo">
+          <p className="home-duo__hint" id="home-duo-hint">Swipe sideways to explore both guides</p>
+          <div className="home-duo" role="region" aria-label="Guidance and security highlights" aria-describedby="home-duo-hint" tabIndex={0}>
             <article className="home-duo__panel home-duo__panel--dark">
               <Sparkles aria-hidden="true" />
               <p className="eyebrow">Ask G20</p>
