@@ -96,7 +96,6 @@ export function Header() {
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search membership, products, calculators or help"
-                  aria-expanded={searchOpen}
                   aria-controls={searchResultsId}
                 />
               </label>

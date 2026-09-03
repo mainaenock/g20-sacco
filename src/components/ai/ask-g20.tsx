@@ -38,7 +38,6 @@ function answerFor(text: string): Omit<ChatMessage, "id" | "role"> {
 }
 
 export function AskG20() {
-  const [hydrated, setHydrated] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     { id: "welcome", role: "assistant", label: "General information", content: "Hello—I'm Ask G20. I can guide you to clear information, deterministic calculators and the right next step. What would you like to understand?", sources: [{ label: "How I can help", href: "/help" }] },
   ]);
@@ -47,9 +46,8 @@ export function AskG20() {
   const [unavailable, setUnavailable] = useState(false);
   const timerRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    setHydrated(true);
-    return () => { if (timerRef.current) window.clearTimeout(timerRef.current); };
+  useEffect(() => () => {
+    if (timerRef.current) window.clearTimeout(timerRef.current);
   }, []);
 
   function send(text: string) {
@@ -73,7 +71,7 @@ export function AskG20() {
   function stop() { if (timerRef.current) window.clearTimeout(timerRef.current); setStreaming(false); }
 
   return (
-    <div className="chat-shell" data-ready={hydrated ? "true" : "false"}>
+    <div className="chat-shell">
       <aside className="chat-sidebar">
         <Sparkles /><h2 style={{ fontSize: "1.6rem", marginTop: 18 }}>Ask G20</h2><p style={{ color: "#cfcfe6" }}>Guided information with visible source links and deliberate handoff.</p>
         <nav aria-label="Suggested questions">{suggestions.map((item) => <button key={item} type="button" onClick={() => send(item)}>{item}</button>)}</nav>
