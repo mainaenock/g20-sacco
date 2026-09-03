@@ -804,3 +804,196 @@ p { line-height: 1.72; }
     background: var(--brand-strong);
   }
 }
+
+/* Data-driven home hero carousel */
+.hero__copy-panel {
+  min-height: 374px;
+  animation: hero-copy-enter .55s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.hero__visual {
+  position: relative;
+  display: block;
+  min-height: 470px;
+  overflow: hidden;
+  isolation: isolate;
+  touch-action: pan-y;
+  background: var(--brand-strong);
+}
+
+.hero__media-stack,
+.hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__media {
+  margin: 0;
+  opacity: 0;
+  transform: scale(1.035);
+  transition: opacity .75s ease, transform 6.8s ease-out;
+  pointer-events: none;
+}
+
+.hero__media.is-active {
+  z-index: 1;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero__media::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 45% 0 0;
+  background: linear-gradient(to bottom, transparent, rgba(18, 17, 38, .82));
+}
+
+.hero__image { object-fit: cover; }
+
+.hero__media figcaption {
+  position: absolute;
+  z-index: 2;
+  right: 24px;
+  bottom: 78px;
+  left: 24px;
+  color: #fff;
+  font-size: .78rem;
+  font-weight: 720;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+}
+
+.hero__slider-controls {
+  position: absolute;
+  z-index: 3;
+  right: 18px;
+  bottom: 18px;
+  left: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero__slider-controls > button,
+.hero__dots button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(20, 19, 42, .62);
+  backdrop-filter: blur(9px);
+  cursor: pointer;
+  transition: color .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.hero__slider-controls > button:hover,
+.hero__slider-controls > button:focus-visible,
+.hero__dots button:hover,
+.hero__dots button:focus-visible {
+  color: var(--brand-strong);
+  border-color: #fff;
+  background: #fff;
+}
+
+.hero__slider-controls svg { width: 17px; height: 17px; }
+
+.hero__dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-right: auto;
+  padding: 0 4px;
+}
+
+.hero__dots button {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  background: rgba(255, 255, 255, .5);
+  backdrop-filter: none;
+}
+
+.hero__dots button.is-active {
+  width: 28px;
+  background: var(--gold);
+}
+
+html[data-lite="true"] .hero__media-stack,
+html[data-lite="true"] .hero__slider-controls { display: none; }
+
+html[data-lite="true"] .hero__visual {
+  background: var(--gold) url('/g20-sacco-logo.jpg') 50% 48% / 142% auto no-repeat;
+}
+
+@keyframes hero-copy-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 799px) {
+  .hero::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background: transparent url('/g20-sacco-logo.jpg') 50% 7% / min(132vw, 560px) auto no-repeat;
+    mix-blend-mode: multiply;
+    opacity: .045;
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-items: stretch;
+    gap: 24px;
+    padding-block: 28px 32px;
+  }
+
+  .hero__copy-panel { min-height: 0; }
+  .hero h1 span { white-space: normal; }
+
+  .hero__trust {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+    overflow-x: auto;
+    margin-top: 24px;
+    padding: 15px 0 5px;
+    scrollbar-width: none;
+  }
+
+  .hero__trust::-webkit-scrollbar { display: none; }
+  .hero__trust span { flex: 0 0 auto; }
+
+  .hero__visual {
+    position: relative;
+    inset: auto;
+    min-height: clamp(300px, 88vw, 430px);
+    border-radius: 22px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .hero__media figcaption {
+    right: 18px;
+    bottom: 70px;
+    left: 18px;
+    font-size: .68rem;
+  }
+
+  .hero__slider-controls {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .hero__slider-controls > button { width: 38px; height: 38px; }
+}

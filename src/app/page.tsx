@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { ArrowRight, BriefcaseBusiness, Calculator, CircleHelp, FileCheck2, HandCoins, PiggyBank, ShieldCheck, Sparkles, Users, WalletCards } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, CircleHelp, HandCoins, PiggyBank, ShieldCheck, Sparkles, Users, WalletCards } from "lucide-react";
 import { Container, DemoNotice, SectionHeader, ButtonLink } from "@/components/ui/primitives";
 import { ProductCard } from "@/components/products/product-card";
 import { QuickCalculator } from "@/components/calculators/quick-calculator";
+import { HeroCarousel } from "@/components/home/hero-carousel";
+import { homeHeroSlides } from "@/content/home-hero";
 import { contentItems, products } from "@/mocks/fixtures";
 import { formatDate } from "@/lib/format";
 
@@ -25,29 +27,7 @@ const journey = [
 export default function HomePage() {
   return (
     <>
-      <section className="hero">
-        <Container className="hero__grid">
-          <div className="hero__copy">
-            <p className="eyebrow">A modern, human digital branch</p>
-            <h1>Your goals. <span>Our shared progress.</span></h1>
-            <p className="hero__lead">Explore membership, savings and borrowing guidance in one clear place—built for Kenyan mobile access, transparent choices and support when you need it.</p>
-            <div className="hero__actions">
-              <ButtonLink href="/join">Join G20</ButtonLink>
-              <ButtonLink href="/borrow" variant="secondary">Explore products</ButtonLink>
-            </div>
-            <div className="hero__trust">
-              <span><ShieldCheck size={18} /> No PINs or OTPs requested</span>
-              <span><Calculator size={18} /> Deterministic estimates</span>
-              <span><FileCheck2 size={18} /> Application, not instant approval</span>
-            </div>
-          </div>
-          <div className="hero__visual" aria-label="Great 20 Sacco brand mark and service highlights">
-            <div className="hero-seal" />
-            <div className="hero-card hero-card--one"><strong>Mobile-first</strong><small>Clear at 320px and beyond</small></div>
-            <div className="hero-card hero-card--two"><strong>Lite Mode</strong><small>Text-first on constrained data</small></div>
-          </div>
-        </Container>
-      </section>
+      <HeroCarousel slides={homeHeroSlides} />
 
       <section className="section section--soft">
         <Container>
