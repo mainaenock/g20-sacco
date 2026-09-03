@@ -573,6 +573,7 @@ p { line-height: 1.72; }
 /* Persistent search lives beneath the navigation; Ask G20 remains the floating action. */
 .site-header__inner { border-bottom: 0; }
 .header-actions { gap: 10px; }
+.mobile-search-button { display: none; }
 .header-search-row {
   position: relative;
   z-index: 2;
@@ -650,7 +651,35 @@ p { line-height: 1.72; }
 }
 
 @media (max-width: 640px) {
-  .header-search-row { padding-block: 8px; }
+  .utility-bar__inner { min-height: 34px; }
+  .utility-bar nav a,
+  .utility-button { min-height: 34px; }
+
+  .site-header__inner {
+    min-height: 56px;
+    gap: 10px;
+  }
+
+  .brand__mark {
+    width: 70px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .header-actions { gap: 2px; }
+  .header-actions .icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .mobile-search-button { display: inline-grid; }
+  .header-search-row {
+    display: none;
+    padding-block: 6px 8px;
+    border-top: 1px solid var(--line);
+    animation: mobile-search-enter .18s ease-out both;
+  }
+  .header-search-row.is-mobile-open { display: block; }
   .header-search-input { min-height: 44px; }
   .header-search-panel {
     left: -2px;
@@ -933,6 +962,11 @@ html[data-lite="true"] .hero__visual {
 
 @keyframes hero-copy-enter {
   from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mobile-search-enter {
+  from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 

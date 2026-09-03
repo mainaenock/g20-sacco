@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search, Sparkles, X, Zap, MapPin, ShieldCheck } from "lucide-react";
@@ -19,9 +19,11 @@ export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [lite, setLite] = useState(false);
   const searchResultsId = useId();
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const stored = window.localStorage.getItem("g20-lite-mode") === "true";
@@ -36,13 +38,33 @@ export function Header() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
     setSearchOpen(false);
+    setMobileSearchOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const closeMobileSearch = () => {
+      if (window.innerWidth > 640) return;
+      setMobileSearchOpen(false);
+      setSearchOpen(false);
+      searchInputRef.current?.blur();
+    };
+
+    window.addEventListener("scroll", closeMobileSearch, { passive: true });
+    return () => window.removeEventListener("scroll", closeMobileSearch);
+  }, []);
 
   function toggleLite() {
     const next = !lite;
     setLite(next);
     window.localStorage.setItem("g20-lite-mode", String(next));
     document.documentElement.dataset.lite = String(next);
+  }
+
+  function toggleMobileSearch() {
+    const next = !mobileSearchOpen;
+    setMobileSearchOpen(next);
+    setSearchOpen(next);
+    if (next) window.requestAnimationFrame(() => searchInputRef.current?.focus());
   }
 
   const results = searchLinks.filter((item) => `${item.title} ${item.text}`.toLowerCase().includes(query.toLowerCase()));
@@ -73,12 +95,22 @@ export function Header() {
           </nav>
           <div className="header-actions">
             <Link href="/join" className="button button--primary header-join">Join G20</Link>
+            <button
+              type="button"
+              className="icon-button mobile-search-button"
+              onClick={toggleMobileSearch}
+              aria-label={mobileSearchOpen ? "Close site search" : "Open site search"}
+              aria-controls="site-header-search"
+              aria-expanded={mobileSearchOpen}
+            >
+              <Search size={21} />
+            </button>
             <button type="button" className="icon-button menu-button" onClick={() => setMenuOpen(true)} aria-label="Open navigation">
               <Menu size={23} />
             </button>
           </div>
         </div>
-        <div className="header-search-row">
+        <div id="site-header-search" className={`header-search-row${mobileSearchOpen ? " is-mobile-open" : ""}`}>
           <div className="container">
             <div
               className="header-search-shell"
@@ -92,6 +124,7 @@ export function Header() {
                 <Search aria-hidden="true" size={19} />
                 <span className="sr-only">Search the G20 website</span>
                 <input
+                  ref={searchInputRef}
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
